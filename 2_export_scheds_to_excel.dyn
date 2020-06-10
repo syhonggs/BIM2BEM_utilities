@@ -1,0 +1,695 @@
+{
+  "Uuid": "e12b8ada-5fc3-4a61-b9db-97c5bec1e523",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "2_export_scheds_to_excel",
+  "ElementResolver": {
+    "ResolutionMap": {
+      "List": {
+        "Key": "List",
+        "Value": "BuiltIn.ds"
+      },
+      "String": {
+        "Key": "DSCore.String",
+        "Value": "DSCoreNodes.dll"
+      },
+      "ScheduleView": {
+        "Key": "Revit.Elements.Views.ScheduleView",
+        "Value": "RevitNodes.dll"
+      },
+      "DSOffice.Data": {
+        "Key": "DSOffice.Data",
+        "Value": "DSOffice.dll"
+      }
+    }
+  },
+  "Inputs": [
+    {
+      "Id": "b02d2953f9614eac91b25026405f8844",
+      "Name": "Excel Path",
+      "Type": "string",
+      "Value": "C:\\Users\\temp\\Documents\\Carleton_GradStudies\\Thesis\\Scripts\\excel_exports\\Geo_data.xlsx",
+      "Description": "Creates a string."
+    },
+    {
+      "Id": "9429caa5d3b549f2877bdd399ca81564",
+      "Name": "Keyword",
+      "Type": "string",
+      "Value": "_SY",
+      "Description": "Creates a string."
+    }
+  ],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "DSRevitNodesUI.ElementTypes, DSRevitNodesUI",
+      "SelectedIndex": 341,
+      "SelectedString": "ViewSchedule",
+      "NodeType": "ExtensionNode",
+      "Id": "84d4af28cbad49b794ad7f1ff6497163",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ee8dbc2c8f5841df82b7ea1254dccf44",
+          "Name": "Types",
+          "Description": "The selected Types",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "All element subtypes."
+    },
+    {
+      "ConcreteType": "DSRevitNodesUI.ElementsOfType, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "Id": "0a4d3f4c2a29412487a3b86d18ec2cae",
+      "Inputs": [
+        {
+          "Id": "b8ce6c75374f47a490d7a48dcc4af41d",
+          "Name": "element type",
+          "Description": "An element type.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "4b0935cdb34340218c7d0a232c2b0ad3",
+          "Name": "elements",
+          "Description": "All elements in the active document of a given type.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "All elements in the active document of a given type."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "C:\\Users\\temp\\Documents\\Carleton_GradStudies\\Thesis\\Scripts\\excel_exports\\Geo_data.xlsx",
+      "Id": "b02d2953f9614eac91b25026405f8844",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a14b357791e04f3c920b00ba4d62b36e",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "//ind1=List.AllIndicesOf(String.Contains(views.Name, \"Analytical Spaces\", false),true);\n//ind2=List.AllIndicesOf(String.Contains(views.Name, \"Analytical Surfaces\", false),true);\nind3=List.AllIndicesOf(String.Contains(views.Name, keyword, false),true);\n\n//inds = List.Join([ind1, ind2, ind3]);\nList.GetItemAtIndex(views, ind3);",
+      "Id": "f8bf2a476f104f9c928a07725f4bda6e",
+      "Inputs": [
+        {
+          "Id": "f3ae623f7c4d4fd9862b89ad59c16e1c",
+          "Name": "views",
+          "Description": "views",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "68ec33331e6e4a12b48d6b5ed5d27aa8",
+          "Name": "keyword",
+          "Description": "keyword",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "54d824b7326942dd9bb189ae32c21882",
+          "Name": "",
+          "Description": "ind3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e096f084607248d99b275265655aad10",
+          "Name": "",
+          "Description": "Value of expression at line 6",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "ScheduleView.Name(sched);",
+      "Id": "825645fc69ec495887335b265ad4fc16",
+      "Inputs": [
+        {
+          "Id": "76e8ea06082e43b8a21ade8ef60e3031",
+          "Name": "sched",
+          "Description": "sched",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "efab9a788e1c4bfcbd71e5d8fbd0c1ce",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Schedule.GetData@var,bool,bool",
+      "Id": "dbec45b864fd412ea61cb565aacf073b",
+      "Inputs": [
+        {
+          "Id": "a8e8bef0ea0b460281ecdd3f1a3dc188",
+          "Name": "scheduleView",
+          "Description": "Enter the Revit schedule view or the schedule name as a string. String inputs are case-sensitive.\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ae9f61db91864a2e9f5973c38b45af02",
+          "Name": "removeHeading",
+          "Description": "Set to True to remove the headings from the schedule data. Has no effect on Electric Panel Schedules or if schedule headings are not visible.\n\nbool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "888b4f775eb347569debc81da3f4ae46",
+          "Name": "refresh",
+          "Description": "Input a bool and switch states to refresh the data or set Dynamo to periodic updating.\n\nbool\nDefault value : true",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "295751609fbb4a1d805db46caad2a106",
+          "Name": "ScheduleData[][]",
+          "Description": "String[][]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Gets all the table data from a given schedule as strings. Supports Periodic updating.\r\rVisit bimorph.com/bimorph-nodes for support\n\nSchedule.GetData (scheduleView: var, removeHeading: bool = false, refresh: bool = true): string[][]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "DSOffice.Data.ExportExcel(path, sheet, 0, 0, data, true);",
+      "Id": "da86f1dcc29c433a8d75864def527992",
+      "Inputs": [
+        {
+          "Id": "3274fbcb78f0493a91163aeb97a172eb",
+          "Name": "path",
+          "Description": "path",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9b9425365e39465eaf09550567d20717",
+          "Name": "sheet",
+          "Description": "sheet",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f67dc8a51d66455e8730d277b8f0da45",
+          "Name": "data",
+          "Description": "data",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "6f737c5af0884d429efa84eb79768a52",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "7f4dae92126443799c5dfeffaf9e1af4",
+      "Inputs": [
+        {
+          "Id": "343511732d6b4803a2dedd3f870bb143",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "3f3669fe8da441f89060c50c1b4881ed",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "5ef8f27eef35403f9239896d82d38f92",
+      "Inputs": [
+        {
+          "Id": "11dffcc9f8d94b82986eff906ace7d8b",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "fc318913686842b6956fa4ded15512ae",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "a35eb5f5c640484890bea5a4957eb386",
+      "Inputs": [
+        {
+          "Id": "853ed6af478c4fe496aedfd94b2a8f61",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "479da7d2e1cb4c76a70191c6dadb4211",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "_SY",
+      "Id": "9429caa5d3b549f2877bdd399ca81564",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "e78e4b4e8bbe4423b7de56c1df8b78d7",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import clr\r\n\r\nclr.AddReference('RevitAPI')\r\nfrom Autodesk.Revit.DB import *\r\n\r\nclr.AddReference('RevitServices')\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\nif IN[0]:\r\n\tTransactionManager.Instance.EnsureInTransaction(doc)\r\n\tunit = doc.GetUnits()\r\n\tLen_format = FormatOptions(DisplayUnitType.DUT_METERS, 0.01)\r\n\tArea_format = FormatOptions(DisplayUnitType.DUT_SQUARE_METERS, 0.01)\r\n\tVol_format = FormatOptions(DisplayUnitType.DUT_CUBIC_METERS, 0.01)\r\n\tunit.SetFormatOptions(UnitType.UT_Length,Len_format)\r\n\tunit.SetFormatOptions(UnitType.UT_Area,Area_format)\r\n\tunit.SetFormatOptions(UnitType.UT_Volume,Vol_format)\r\n\t\r\n\tdoc.SetUnits(unit)\r\n\tTransactionManager.Instance.TransactionTaskDone()\r\n\tOUT = \"length unit changed to meter\"\r\nelse:\r\n\tOUT = \"Set IN[0] to true!\"",
+      "VariableInputPorts": true,
+      "Id": "110d4b9029444623938104d91e9c0660",
+      "Inputs": [
+        {
+          "Id": "95972f5a5b9c4eef8b6c014f586db3bc",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8783a95f3e394cdfaff45d32d8e3b391",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "true;",
+      "Id": "9941c9b7179a4fe1bb4a85713fbf4d20",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ffcca0140ff54b8096dbf54661fa357b",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "ee8dbc2c8f5841df82b7ea1254dccf44",
+      "End": "b8ce6c75374f47a490d7a48dcc4af41d",
+      "Id": "f83c44c56ef64eb698faa410b17df85c"
+    },
+    {
+      "Start": "4b0935cdb34340218c7d0a232c2b0ad3",
+      "End": "f3ae623f7c4d4fd9862b89ad59c16e1c",
+      "Id": "ec6adcdc97ac4f5f9ce56e783bfe38c6"
+    },
+    {
+      "Start": "a14b357791e04f3c920b00ba4d62b36e",
+      "End": "3274fbcb78f0493a91163aeb97a172eb",
+      "Id": "d5e23154b1e241899146fc7870769f91"
+    },
+    {
+      "Start": "54d824b7326942dd9bb189ae32c21882",
+      "End": "11dffcc9f8d94b82986eff906ace7d8b",
+      "Id": "9c08e618afad44288dffc2bc6daba8e1"
+    },
+    {
+      "Start": "e096f084607248d99b275265655aad10",
+      "End": "a8e8bef0ea0b460281ecdd3f1a3dc188",
+      "Id": "fd14b3aa8d4a4cb7a7b75634c067aba8"
+    },
+    {
+      "Start": "e096f084607248d99b275265655aad10",
+      "End": "76e8ea06082e43b8a21ade8ef60e3031",
+      "Id": "9bdbef5e406248649b586bd389271554"
+    },
+    {
+      "Start": "efab9a788e1c4bfcbd71e5d8fbd0c1ce",
+      "End": "343511732d6b4803a2dedd3f870bb143",
+      "Id": "625f58ed3b044b6f91af1e7f1adaf486"
+    },
+    {
+      "Start": "efab9a788e1c4bfcbd71e5d8fbd0c1ce",
+      "End": "9b9425365e39465eaf09550567d20717",
+      "Id": "d9d2f474f7ec41fd8d0bda7ade37c535"
+    },
+    {
+      "Start": "295751609fbb4a1d805db46caad2a106",
+      "End": "f67dc8a51d66455e8730d277b8f0da45",
+      "Id": "b2155a4769374e68970186b5872b9278"
+    },
+    {
+      "Start": "6f737c5af0884d429efa84eb79768a52",
+      "End": "853ed6af478c4fe496aedfd94b2a8f61",
+      "Id": "a1879ce0f89a4e41be4d7bf785f0afd4"
+    },
+    {
+      "Start": "e78e4b4e8bbe4423b7de56c1df8b78d7",
+      "End": "68ec33331e6e4a12b48d6b5ed5d27aa8",
+      "Id": "1eb43c857cef4ee3b950eabc5b5c23c7"
+    },
+    {
+      "Start": "ffcca0140ff54b8096dbf54661fa357b",
+      "End": "95972f5a5b9c4eef8b6c014f586db3bc",
+      "Id": "c99483161d0f4abcbe9db676213cdae6"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.2.1.5175",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "Id": "84d4af28cbad49b794ad7f1ff6497163",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Element Types",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 999.20000000000039,
+        "Y": 835.53280783957052
+      },
+      {
+        "Id": "0a4d3f4c2a29412487a3b86d18ec2cae",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "All Elements of Type",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 1201.4759564626402,
+        "Y": 836.20444120196044
+      },
+      {
+        "Id": "b02d2953f9614eac91b25026405f8844",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Name": "Excel Path",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 2393.18382712601,
+        "Y": 543.19999999999982
+      },
+      {
+        "Id": "f8bf2a476f104f9c928a07725f4bda6e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Code Block",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 1448.9342563012701,
+        "Y": 806.70310638618048
+      },
+      {
+        "Id": "825645fc69ec495887335b265ad4fc16",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Code Block",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 2329.42213746667,
+        "Y": 755.6281555311607
+      },
+      {
+        "Id": "dbec45b864fd412ea61cb565aacf073b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Schedule.GetData",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 2330.97637334293,
+        "Y": 865.85385634372051
+      },
+      {
+        "Id": "da86f1dcc29c433a8d75864def527992",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Code Block",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 2758.22225341872,
+        "Y": 668.10236739146058
+      },
+      {
+        "Id": "7f4dae92126443799c5dfeffaf9e1af4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Watch",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 2752.2322831506804,
+        "Y": 802.97588402807014
+      },
+      {
+        "Id": "5ef8f27eef35403f9239896d82d38f92",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Watch",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 2233.9705022829057,
+        "Y": 576.26961392933754
+      },
+      {
+        "Id": "a35eb5f5c640484890bea5a4957eb386",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Watch",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 3363.3576602305398,
+        "Y": 708.16333035714069
+      },
+      {
+        "Id": "9429caa5d3b549f2877bdd399ca81564",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Name": "Keyword",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 1331.2000000000007,
+        "Y": 939.99999999999977
+      },
+      {
+        "Id": "110d4b9029444623938104d91e9c0660",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Change Project Unit to [m] with two decimal places",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 1207.5266812825887,
+        "Y": 629.27115428125671
+      },
+      {
+        "Id": "9941c9b7179a4fe1bb4a85713fbf4d20",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Code Block",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 1098.7300108739262,
+        "Y": 633.14980960563867
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "07bba095355a46699aa0e531961186b2",
+        "Title": "Export Schedules w/ \"_SY\" keyword",
+        "Nodes": [
+          "84d4af28cbad49b794ad7f1ff6497163",
+          "0a4d3f4c2a29412487a3b86d18ec2cae",
+          "b02d2953f9614eac91b25026405f8844",
+          "f8bf2a476f104f9c928a07725f4bda6e",
+          "825645fc69ec495887335b265ad4fc16",
+          "dbec45b864fd412ea61cb565aacf073b",
+          "da86f1dcc29c433a8d75864def527992",
+          "7f4dae92126443799c5dfeffaf9e1af4",
+          "5ef8f27eef35403f9239896d82d38f92",
+          "a35eb5f5c640484890bea5a4957eb386"
+        ],
+        "Left": 989.20000000000039,
+        "Top": 489.99999999999983,
+        "Width": 2488.1576602305395,
+        "Height": 553.57588402807028,
+        "FontSize": 36.0,
+        "InitialTop": 543.19999999999982,
+        "InitialHeight": 467.65385634372069,
+        "TextblockHeight": 43.2,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": -788.68329381375042,
+    "Y": -166.42101665196762,
+    "Zoom": 0.74804557627634238
+  }
+}
